@@ -9,3 +9,4 @@ This repository is for deploying general purpose system software that is used on
 
 * `ncdu` : [NCurses Disk Usage](https://dev.yorhel.nl/ncdu) is a disk usage analyzer with a text-mode user interface. It is designed to find space hogs on a remote server where you don’t have an entire graphical setup available, but it is a useful tool even on regular desktop systems. Ncdu aims to be fast, simple, easy to use, and should be able to run on any POSIX-like system.
 
+* `gh` : [GitHub CLI](https://cli.github.com) is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.

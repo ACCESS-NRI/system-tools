@@ -1,0 +1,21 @@
+# This is a Spack Environment file
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  specs:
+    - gh@2.74.1
+  packages:
+    ncdu:
+      require:
+        - '%gcc@14.1.0'
+  view: true
+  concretizer:
+    unify: true
+  modules:
+    default:
+      tcl:
+        include:
+          - gh
+        projections:
+          gh: 'system-tools/{name}/2.74.1
