@@ -1,0 +1,136 @@
+# Requires vars.NAME to be set as a variable.
+name: CI
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+      - ready_for_review
+      - converted_to_draft
+    branches:
+      - main
+      - dev
+      - backport/*.*
+    paths:
+      - config/**
+      - '**/spack.yaml'
+  issue_comment:
+    types:
+      - created
+      - edited
+jobs:
+  # FIXME: For now, this modified workflow does not deploy based on changes to the config/** files.
+  # If you change the config/** files, you will need to manually update the manifests you want to deploy.
+  setup-pr:
+    name: Setup PR Info
+    if: >-
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' && startsWith(github.event.comment.body, '!redeploy'))
+    runs-on: ubuntu-latest
+    outputs:
+      manifest: ${{ steps.matrix.outputs.string }}
+    steps:
+      - name: Get PR HEAD
+        # Get the HEAD of the pull request, which is obtained differently depending on the event (pull_request or issue_comment)
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event.issue.number }}
+        run: |
+          head=$(gh pr view \
+            ${{ env.PR_NUMBER }} \
+            --repo ${{ github.repository }} \
+            --json headRefName \
+            --jq '.headRefName'
+          )
+
+          echo "For ${{ github.event_name }} the PR number is ${{ env.PR_NUMBER }} and the head is $head"
+
+          echo "head=$head" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.pr.outputs.head }}
+
+      - name: Get changed files
+        # Get changed **/spack.yaml files so we can deploy them
+        id: changed-files
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c  # v46.0.6
+        with:
+          # If it is a non-closed pull request, we want to get the changed files since the last remote commit, so we don't redeploy files not changed in a commit
+          # If it is a closed PR, or an issue_comment with !redeploy, we want to get the changed files across the whole branch
+          since_last_remote_commit: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
+          json: true
+          output_dir: .
+          write_output_files: true
+          files: |
+            **/spack.yaml
+
+      - name: Format changed files
+        # We reformat the json list of changed files as list of objects containing the name (the containing folder) and the path (the containing folder AND manifest name)
+        # Eg, ["fre-nctools/spack.yaml", "gh/spack.yaml"] becomes: [{"name": "fre-nctools", "path": "fre-nctools/spack.yaml"}, {"name": "gh", "path": "gh/spack.yaml"}]
+        id: matrix
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+
+          echo "All changed files:"
+          cat all_changed_files.json
+          echo ""
+
+          jq -c '[.[] | {name: split("/")[0], path: .}]' all_changed_files.json > matrix.json
+
+          echo "Matrix:"
+          cat matrix.json
+
+          echo "string=$(cat matrix.json)" >> $GITHUB_OUTPUT
+
+  pr-ci:
+    name: CI
+    needs:
+      - setup-pr
+    # A matrix strategy with no elements is considered an error, so we only run this job if there are changed manifests
+    # and it is either a non-closed pull request or an issue comment that starts with !redeploy
+    if: >-
+      needs.setup-pr.outputs.manifest != '[]' &&
+      ((github.event_name == 'pull_request' && github.event.action != 'closed') ||
+      (github.event_name == 'issue_comment' && startsWith(github.event.comment.body, '!redeploy')))
+    strategy:
+      # The failure of install of an unrelated tool shouldn't affect the others
+      fail-fast: false
+      # We don't want to spam the spack instance with install requests - this means that it will seem that
+      # only one of the jobs is being run within the matrix.
+      max-parallel: 1
+      matrix:
+        manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
+    uses: access-nri/build-cd/.github/workflows/ci.yml@v5-model-tools
+    with:
+      model: ${{ matrix.manifest.name }}
+      pr: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event.issue.number }}
+      spack-manifest-path: ${{ matrix.manifest.path }}
+    permissions:
+      pull-requests: write
+      contents: write
+      statuses: write
+    secrets: inherit
+
+  pr-closed:
+    name: Closed
+    if: >-
+      needs.setup-pr.outputs.manifest != '[]' &&
+      github.event_name == 'pull_request' && github.event.action == 'closed'
+    needs:
+      - setup-pr
+    strategy:
+      # The failure of uninstall of an unrelated tool shouldn't affect the others
+      fail-fast: false
+      # We don't want to spam the spack instance with uninstall requests
+      max-parallel: 1
+      matrix:
+        manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
+    uses: access-nri/build-cd/.github/workflows/ci-closed.yml@v5-model-tools
+    with:
+      root-sbd: ${{ matrix.manifest.name }}
+    secrets: inherit

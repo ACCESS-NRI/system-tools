@@ -1,0 +1,77 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - config/**
+      - '**/spack.yaml'
+jobs:
+    # FIXME: For now, this modified workflow does not deploy based on changes to the config/** files.
+  # If you change the config/** files, you will need to manually update the manifests you want to deploy.
+  setup-cd:
+    name: Setup CD Info
+    runs-on: ubuntu-latest
+    outputs:
+      manifest: ${{ steps.matrix.outputs.string }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        # Get changed **/spack.yaml files so we can deploy them
+        id: changed-files
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c  # v46.0.6
+        with:
+          since_last_remote_commit: true
+          json: true
+          output_dir: .
+          write_output_files: true
+          files: |
+            **/spack.yaml
+
+      - name: Format changed files
+        # We reformat the json list of changed files as list of objects containing the name (the containing folder) and the path (the containing folder AND manifest name)
+        # Eg, ["fre-nctools/spack.yaml", "gh/spack.yaml"] becomes: [{"name": "fre-nctools", "path": "fre-nctools/spack.yaml"}, {"name": "gh", "path": "gh/spack.yaml"}]
+        id: matrix
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+
+          echo "All changed files:"
+          cat all_changed_files.json
+          echo ""
+
+          jq -c '[.[] | {name: split("/")[0], path: .}]' all_changed_files.json > matrix.json
+
+          echo "Matrix:"
+          cat matrix.json
+
+          echo "string=$(cat matrix.json)" >> $GITHUB_OUTPUT
+
+  cd:
+    name: CD
+    needs:
+      - setup-cd
+    # A matrix strategy with no elements is considered an error, so we only run this job if there are changed manifests
+    if: needs.setup-cd.outputs.manifest != '[]'
+    strategy:
+      # The failure of install of an unrelated tool shouldn't affect the others
+      fail-fast: false
+      # We don't want to spam the spack instance with install requests - this means that it will seem that
+      # only one of the jobs is being run within the matrix.
+      max-parallel: 1
+      matrix:
+        manifest: ${{ fromJson(needs.setup-cd.outputs.manifest) }}
+    uses: access-nri/build-cd/.github/workflows/cd.yml@v5-model-tools
+    with:
+      model: ${{ matrix.manifest.name }}
+      spack-manifest-path: ${{ matrix.manifest.path }}
+      # This is a non-model deployment repository, so we do not want to tag the deployment or upload to the build database
+      tag-deployment: false
+      upload-to-build-db: false
+    permissions:
+      contents: write
+      # This is due to the entrypoint also handling `on.pull_request` events
+      pull-requests: write
+    secrets: inherit
