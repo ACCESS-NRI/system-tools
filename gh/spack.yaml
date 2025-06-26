@@ -7,10 +7,6 @@
 spack:
   specs:
     - gh@2.74.1
-  packages:
-    ncdu:
-      require:
-        - '%gcc@14.1.0'
   view: true
   concretizer:
     unify: true
@@ -20,4 +16,4 @@ spack:
         include:
           - gh
         projections:
-          gh: 'system-tools/{name}/2.74.1
+          gh: 'system-tools/{name}/2.74.1'
