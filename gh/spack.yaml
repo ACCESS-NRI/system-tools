@@ -2,6 +2,8 @@
 #
 # It describes a set of packages to be installed, along with
 # configuration settings.
+#
+# This manifest is for installing gh, the GitHub command line interface
 spack:
   specs:
     - gh@2.74.1

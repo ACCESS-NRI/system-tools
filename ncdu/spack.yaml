@@ -2,6 +2,8 @@
 #
 # It describes a set of packages to be installed, along with
 # configuration settings.
+#
+# This manifest is for installing ncdu, a terminal user interface for du (disk usage)
 spack:
   specs:
     - ncdu@1.19
