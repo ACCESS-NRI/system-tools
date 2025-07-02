@@ -6,7 +6,7 @@
 # This manifest is for installing gh, the GitHub command line interface
 spack:
   specs:
-    - gh@2.74.1
+    - gh@2.43.1
   packages:
     gh:
       require:
@@ -20,4 +20,4 @@ spack:
         include:
           - gh
         projections:
-          gh: 'system-tools/{name}/2.74.1'
+          gh: 'system-tools/{name}/2.43.1'
