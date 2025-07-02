@@ -36,6 +36,6 @@ module avail ncdu
 
 ## Support
 
-This repository and the software deployed from it are support by ACCESS-NRI.
+This repository and the software deployed from it are supported by ACCESS-NRI.
 
 If you encounter any issues, or would like other tools added to this repository either [make an issue](https://github.com/ACCESS-NRI/system-tools/issues), or request support through the [ACCESS-Hive Forum](https://forum.access-hive.org.au/t/access-help-and-support/908).
