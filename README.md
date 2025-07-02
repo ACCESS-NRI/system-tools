@@ -14,18 +14,22 @@ This repository is for deploying general purpose system software that is used on
 
 **Requirements**: you must be a member of [`vk83`](https://my.nci.org.au/mancini/project/vk83).
 
-The software is accessible through the environment module system on `gadi`:
+The software is accessible through the environment module system on `gadi`, e.g.
 ```
 module use /g/data/vk83/modules
-module load gh ncdu
+module load system-tools/gh
 ```
-will load the most recent versions of `gh` and `ncdu`.
+will load the most recent version of `gh`.
 
 To discover what tools and versions are available:
 ```
 module avail system-tools
 ```
 or a specific tool
+```
+module avail system-tools/ncdu
+```
+It also works without the `model-tools` namespace:
 ```
 module avail ncdu
 ```
