@@ -1,0 +1,23 @@
+# This is a Spack Environment file
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+#
+# This manifest is for installing ncdu, a terminal user interface for du (disk usage)
+spack:
+  specs:
+    - ncdu@1.19
+  packages:
+    ncdu:
+      require:
+        - '%gcc@14.1.0'
+  view: true
+  concretizer:
+    unify: true
+  modules:
+    default:
+      tcl:
+        include:
+          - ncdu
+        projections:
+          ncdu: 'system-tools/{name}/14.1.0'

@@ -1,0 +1,23 @@
+# This is a Spack Environment file
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+#
+# This manifest is for installing gh, the GitHub command line interface
+spack:
+  specs:
+    - gh@2.43.1
+  packages:
+    gh:
+      require:
+        - '%gcc@14.1.0'
+  view: true
+  concretizer:
+    unify: true
+  modules:
+    default:
+      tcl:
+        include:
+          - gh
+        projections:
+          gh: 'system-tools/{name}/2.43.1'

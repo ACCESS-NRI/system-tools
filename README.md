@@ -1,67 +1,41 @@
-# software-deployment-template
+# Model Tools Deployment
 
-A template repository for the deployment of `spack`-based software
+## Overview
 
-> [!NOTE]
-> Feel free to replace this README with information on the repository once the TODOs have been ticked off.
+This repository is for deploying general purpose system software that is used on HPC targets, in this case gadi@NCI utilising the [build-cd](https://github.com/ACCESS-NRI/build-cd) infrastructure.
 
-## Things TODO to get your software deployed
+## Supported tools
 
-### Settings
+* `ncdu` : [NCurses Disk Usage](https://dev.yorhel.nl/ncdu) is a disk usage analyzer with a text-mode user interface. It is designed to find space hogs on a remote server where you don’t have an entire graphical setup available, but it is a useful tool even on regular desktop systems. Ncdu aims to be fast, simple, easy to use, and should be able to run on any POSIX-like system.
 
-#### Repository Settings
+* `gh` : [GitHub CLI](https://cli.github.com) is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.
 
-Relevant branch protections should be set up on `main` and other important branches.
+## How to use
 
-#### Repository Secrets/Variables
+**Requirements**: you must be a member of [`vk83`](https://my.nci.org.au/mancini/project/vk83).
 
-There are a few secrets and variables that must be set at the repository level.
+The software is accessible through the environment module system on `gadi`, e.g.
+```
+module use /g/data/vk83/modules
+module load system-tools/gh
+```
+will load the most recent version of `gh`.
 
-##### Repository Variables
+To discover what tools and versions are available:
+```
+module avail system-tools
+```
+or a specific tool
+```
+module avail system-tools/ncdu
+```
+It also works without the `model-tools` namespace:
+```
+module avail ncdu
+```
 
-* `CONFIG_VERSIONS_SCHEMA_VERSION`: Version of the [`config/versions.json` schema](https://github.com/ACCESS-NRI/schema/tree/main/au.org.access-nri/model/deployment/config/versions) used in this repository
-* `SPACK_YAML_SCHEMA_VERSION`: Version of the [ACCESS-NRI-style `spack.yaml` schema](https://github.com/ACCESS-NRI/schema/tree/main/au.org.access-nri/model/spack/environment/deployment) used in this repository
-* `RELEASE_DEPLOYMENT_TARGETS`: Space-separated list of deployment targets when doing release deployments. These are often the names of [keys under the `deployment` key of `build-cd`s `config/settings.json`](https://github.com/ACCESS-NRI/build-cd/blob/09cdf100eefc58f06900e8e9145e77b4caf5a39d/config/settings.json#L3), such as `Gadi` or `Setonix`. As noted [below](#environment-secretsvariables), it is the same as the GitHub Environment name. For example: `Gadi Setonix`
-* `PRERELEASE_DEPLOYMENT_TARGETS`: Space-separated list of deployment targets when doing prerelease deployments, similar to the above. For example: `Gadi Setonix` - note the lack of a `Prerelease` specifier!
+## Support
 
-#### Environment Secrets/Variables
+This repository and the software deployed from it are supported by ACCESS-NRI.
 
-GitHub Environments are sets of variables and secrets that are used specifically to deploy software, and hence have more security requirements for their use.
-
-Currently, we have two Environments per deployment target - one for `Release` and one for `Prerelease`. Our current list of deployment targets and Environments can be found in this [deployment configuration file in `build-cd`](https://github.com/ACCESS-NRI/build-cd/blob/main/config/deployment-environment.json).
-
-In order to deploy to a given deployment target:
-
-* Environments with the name of the deployment target and the type must be created _in this repository_ and have the associated secrets/variables set ([see below](#environment-secrets))
-* There must be a `Prerelease` Environment associated with the `Release` Environment. For example, if we are deploying to `SUPERCOMPUTER`, we require Environments with the names `SUPERCOMPUTER Release`, `SUPERCOMPUTER Prerelease`.
-
-When setting the environment up, remember to require sign off by a member of ACCESS-NRI when deploying as a `Release`.
-
-Regarding the secrets and variables that must be created:
-
-##### Environment Secrets
-
-* `HOST`: The deployment location SSH Host
-* `HOST_DATA`: The deployment location SSH Host for data transfer (may be the same as `HOST`)
-* `SSH_KEY`: A SSH Key that allows access to the above `HOST`/`HOST_DATA`
-* `USER`: A Username to login to the above `HOST`/`HOST_DATA`
-
-##### Environment Variables
-
-* `DEPLOYED_MODULES_DIR`: Directory that will contain the modules created during the installation of the model. This can be virtual modules created by a [`.modulerc` file](https://github.com/ACCESS-NRI/build-cd/tree/main/tools/modules) in the directory.
-* `DEPLOYMENT_TARGET`: Name of the deployment target. It is exported to the deployment target and used for variations in `spack.yaml` build processes - seen most prominently in mutually-exclusive 'when' clauses like `spack.definitions[].when = env['DEPLOYMENT_TARGET'] == 'gadi'`. Also used for logging purposes.
-* `SPACK_INSTALLS_ROOT_LOCATION`: Path to the directory that contains all versions of a deployment of `spack`. For example, if `/some/apps/spack` is the `SPACK_INSTALLS_ROOT_LOCATION`, that directory will contain directories like `0.20`, `0.21`, `0.22`, which in turn contain an install of `spack`, `spack-packages` and `spack-config`
-* `SPACK_YAML_LOCATION`: Path to a directory that will contain the `spack.yaml` from this repository during deployment
-* (Optional) `SPACK_INSTALL_ADDITIONAL_ARGS`: Additional flags outside of `--fresh --fail-fast` to add to the `spack install` command. For advanced users who need to tailor the installation options in their repository.
-
-### File Modifications
-
-#### In `config/versions.json`
-
-* `.spack` must be given a version. For example, it will clone the associated `releases/vVERSION` branch of `ACCESS-NRI/spack` if you give it `VERSION`.
-* `.spack-packages` should also have a CalVer-compliant tag as the version. See the [associated repo](https://github.com/ACCESS-NRI/spack-packages/tags) for a list of available tags.
-
-#### In `spack.yaml`
-
-> [!IMPORTANT]
-> Unlike Model Deployment Repositories (and [the template](https://github.com/ACCESS-NRI/model-deployment-template) they are based on), you can have multiple `spack.yaml` manifests in one repository. Just remember to demarcate them by directory name - eg. `TOOL1/spack.yaml`, `TOOL2/spack.yaml`, etc.
+If you encounter any issues, or would like other tools added to this repository either [make an issue](https://github.com/ACCESS-NRI/system-tools/issues), or request support through the [ACCESS-Hive Forum](https://forum.access-hive.org.au/t/access-help-and-support/908).
