@@ -1,4 +1,4 @@
-# Model Tools Deployment
+# Systen Tools Deployment
 
 ## Overview
 
@@ -29,7 +29,7 @@ or a specific tool
 ```
 module avail system-tools/ncdu
 ```
-It also works without the `model-tools` namespace:
+It also works without the `system-tools` namespace:
 ```
 module avail ncdu
 ```
