@@ -10,6 +10,12 @@ This repository is for deploying general purpose system software that is used on
 
 * `gh` : [GitHub CLI](https://cli.github.com) is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.
 
+* `openssh` : [OpenSSH](https://www.openssh.com/) is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, _OpenSSH_ provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.
+The OpenSSH suite consists of the following tools:
+  - Remote operations are done using `ssh`, `scp`, and `sftp`.
+  - Key management with `ssh-add`, `ssh-keysign`, `ssh-keyscan`, and `ssh-keygen`.
+  - The service side consists of `sshd`, `sftp-server`, and `ssh-agent`.
+
 ## How to use
 
 **Requirements**: you must be a member of [`vk83`](https://my.nci.org.au/mancini/project/vk83).
