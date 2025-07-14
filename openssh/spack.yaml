@@ -3,7 +3,7 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 #
-# This manifest is for installing ncdu, a terminal user interface for du (disk usage)
+# This manifest is for installing openssh, a suite of secure networking utilities based on the SSH protocol
 spack:
   specs:
     - openssh@9.8p1
