@@ -20,4 +20,4 @@ spack:
         include:
           - pinentry
         projections:
-          openssh: 'system-tools/{name}/{version}'
+          pinentry: 'system-tools/{name}/{version}'
