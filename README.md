@@ -23,6 +23,13 @@ The OpenSSH suite consists of the following tools:
 > OpenSSH system-tool was added primarily for [git signing on Gadi](https://github.com/ACCESS-NRI/dev-docs/wiki/Git-and-Github#sign-commits-on-gadi).
 > For all other use cases, we recommend using Gadi's system OpenSSH distribution, as ACCESS-NRI has not tested or validated this library configuration for security compliance.
 
+### pinentry
+[pinentry](https://www.gnupg.org/related_software/pinentry/index.html) is a small collection of dialog programs that allow GnuPG to read passphrases and PIN numbers in a secure manner. 
+
+> [!WARNING]
+> pinentry system-tool was added primarily for [mosrs-auth simple password input dialog](https://github.com/ACCESS-NRI/dev-docs/wiki/MOSRS#mosrs-auth-with-a-simple-password-input-dialog).
+> For all other use cases, we recommend using Gadi's system pinentry, as ACCESS-NRI has not tested or validated this library configuration for security compliance.
+
 ## How to use
 
 **Requirements**: you must be a member of [`vk83`](https://my.nci.org.au/mancini/project/vk83).
