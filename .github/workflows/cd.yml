@@ -63,7 +63,7 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-cd.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/cd.yml@v6
+    uses: access-nri/build-cd/.github/workflows/cd.yml@v7
     with:
       model: ${{ matrix.manifest.name }}
       spack-manifest-path: ${{ matrix.manifest.path }}
