@@ -6,11 +6,11 @@
 # This manifest is for installing ncdu, a terminal user interface for du (disk usage)
 spack:
   specs:
-    - ncdu@1.19
+  - ncdu@1.19
   packages:
     ncdu:
       require:
-        - '%gcc@14.1.0'
+      - '%gcc@14.1.0'
   view: true
   concretizer:
     unify: true
@@ -18,6 +18,6 @@ spack:
     default:
       tcl:
         include:
-          - ncdu
+        - ncdu
         projections:
           ncdu: 'system-tools/{name}/{version}'

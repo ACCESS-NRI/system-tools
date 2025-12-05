@@ -6,14 +6,14 @@
 # This manifest is for installing gh, the GitHub command line interface
 spack:
   specs:
-    - gh@2.49.2
+  - gh@2.49.2
   packages:
     gh:
       require:
-        - '%gcc@14.1.0'
+      - '%gcc@14.1.0'
     all:
       require:
-        - 'target=x86_64'
+      - 'target=x86_64'
   view: true
   concretizer:
     unify: true
@@ -21,6 +21,6 @@ spack:
     default:
       tcl:
         include:
-          - gh
+        - gh
         projections:
           gh: 'system-tools/{name}/{version}'
