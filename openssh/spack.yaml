@@ -5,12 +5,19 @@
 #
 # This manifest is for installing openssh, a suite of secure networking utilities based on the SSH protocol
 spack:
+  definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
+  - _name: [openssh]
+  - _version: [@9.8p1]
   specs:
   - openssh@9.8p1
   packages:
     openssh:
       require:
-      - '%gcc@14.1.0'
+      - '%access_gcc'
+    gcc:
+      require:
+      - '@14.1.0'
   view: true
   concretizer:
     unify: true
