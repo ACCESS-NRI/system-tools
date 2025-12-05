@@ -5,12 +5,19 @@
 #
 # This manifest is for installing ncdu, a terminal user interface for du (disk usage)
 spack:
+  definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
+  - _name: [ncdu]
+  - _version: [1.19]
   specs:
   - ncdu@1.19
   packages:
     ncdu:
       require:
-      - '%gcc@14.1.0'
+      - '%access_gcc'
+    gcc:
+      require:
+      - '@14.1.0'
   view: true
   concretizer:
     unify: true

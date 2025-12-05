@@ -5,12 +5,20 @@
 #
 # This manifest is for installing pinentry, a small collection of dialog programs that allow GnuPG to read passphrases and PIN numbers in a secure manner.
 spack:
+  definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
+  - _name: [pinentry]
+  - _version: [1.3.0]
   specs:
   - pinentry@1.3.0 gui=tty
   packages:
     pinentry:
       require:
-      - '%gcc@14.1.0'
+      - '%access_gcc'
+
+    gcc:
+      require:
+      - '@14.1.0'
   view: true
   concretizer:
     unify: true

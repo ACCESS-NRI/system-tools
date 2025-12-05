@@ -5,12 +5,18 @@
 #
 # This manifest is for installing gh, the GitHub command line interface
 spack:
+  definitions:
+  - _name: [gh]
+  - _version: [2.43.1]
   specs:
   - gh@2.49.2
   packages:
     gh:
       require:
-      - '%gcc@14.1.0'
+      - '%access_gcc'
+    gcc:
+      require:
+      - '@14.1.0'
     all:
       require:
       - 'target=x86_64'
