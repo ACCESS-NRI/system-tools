@@ -11,9 +11,6 @@ spack:
     pinentry:
       require:
         - '%gcc@14.1.0'
-    all:
-      require:
-        - 'target=x86_64'
   view: true
   concretizer:
     unify: true
