@@ -23,4 +23,4 @@ spack:
         include:
           - gh
         projections:
-          gh: 'system-tools/{name}/2.43.1'
+          gh: 'system-tools/{name}/{version}'
