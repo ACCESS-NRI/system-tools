@@ -105,7 +105,7 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/ci.yml@v8
+    uses: access-nri/build-cd/.github/workflows/ci.yml@spack-v1-migration-reserved-defs_TEST
     with:
       model: ${{ matrix.manifest.name }}
       pr: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event.issue.number }}
@@ -135,7 +135,7 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/ci-closed.yml@v8
+    uses: access-nri/build-cd/.github/workflows/ci-closed.yml@spack-v1-migration-reserved-defs_TEST
     with:
       root-sbd: ${{ matrix.manifest.name }}
     secrets: inherit
