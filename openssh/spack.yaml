@@ -6,11 +6,14 @@
 # This manifest is for installing openssh, a suite of secure networking utilities based on the SSH protocol
 spack:
   specs:
-    - openssh@9.8p1
+    - openssh@9.9p1
   packages:
     openssh:
       require:
         - '%gcc@14.1.0'
+    all:
+      require:
+        - 'target=x86_64'
   view: true
   concretizer:
     unify: true
