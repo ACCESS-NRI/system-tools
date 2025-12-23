@@ -15,17 +15,16 @@ spack:
     # Compilers
     c:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     cxx:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     fortran:
       require:
-      - 'gcc@14.1.0'
-
+      - 'gcc@15.1.0'
     all:
       prefer:
-      - 'target=x86_64'
+      - 'target=x86_64_v3'
   view: true
   concretizer:
     unify: true
