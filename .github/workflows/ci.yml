@@ -108,7 +108,6 @@ jobs:
     uses: access-nri/build-cd/.github/workflows/ci.yml@v8
     with:
       model: ${{ matrix.manifest.name }}
-      pr: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event.issue.number }}
       spack-manifest-path: ${{ matrix.manifest.path }}
       # We have a custom schema for general software deployment manifests, so we specify it here
       spack-manifest-schema-path: au.org.access-nri/tools/spack/environment/deployment
@@ -137,5 +136,5 @@ jobs:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
     uses: access-nri/build-cd/.github/workflows/ci-closed.yml@v8
     with:
-      root-sbd: ${{ matrix.manifest.name }}
+      spack-manifest-path: ${{ matrix.manifest.path }}
     secrets: inherit
