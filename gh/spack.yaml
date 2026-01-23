@@ -26,7 +26,5 @@ spack:
   modules:
     default:
       tcl:
-        include:
-        - gh
         projections:
-          gh: 'system-tools/{name}/{version}'
+          gh: 'system-tools/{name}'
