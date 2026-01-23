@@ -10,7 +10,7 @@ spack:
   packages:
     gh:
       require:
-        - '%gcc@14.1.0'
+        - '%gcc@15.1.0'
     all:
       require:
         - 'target=x86_64'
