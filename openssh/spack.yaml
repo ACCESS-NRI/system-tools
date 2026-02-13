@@ -12,14 +12,19 @@ spack:
   specs:
   - openssh@9.9p1
   packages:
-    openssh:
+    # Compilers
+    c:
       require:
-      - '%access_gcc'
-    gcc:
+      - 'gcc@14.1.0'
+    cxx:
       require:
-      - '@14.1.0'
+      - 'gcc@14.1.0'
+    fortran:
+      require:
+      - 'gcc@14.1.0'
+
     all:
-      require:
+      prefer:
       - 'target=x86_64'
   view: true
   concretizer:
