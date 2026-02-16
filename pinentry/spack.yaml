@@ -8,7 +8,7 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [pinentry]
-  - _version: [1.3.0]
+  - _version: [1.3.0-1]
   specs:
   - pinentry@1.3.0 gui=tty
   packages:
@@ -34,4 +34,4 @@ spack:
         include:
         - pinentry
         projections:
-          pinentry: 'system-tools/{name}/{version}'
+          pinentry: 'system-tools/{name}/1.3.0-1'

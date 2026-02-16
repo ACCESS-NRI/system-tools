@@ -8,7 +8,7 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [openssh]
-  - _version: [9.9p1]
+  - _version: [9.9p1-1]
   specs:
   - openssh@9.9p1
   packages:
@@ -34,4 +34,4 @@ spack:
         include:
         - openssh
         projections:
-          openssh: 'system-tools/{name}/{version}'
+          openssh: 'system-tools/{name}/9.9p1-1'

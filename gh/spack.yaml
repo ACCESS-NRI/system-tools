@@ -8,7 +8,7 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [gh]
-  - _version: [2.49.2]
+  - _version: [2.49.2-1]
   specs:
   - gh@2.49.2
   packages:
@@ -34,4 +34,4 @@ spack:
         include:
         - gh
         projections:
-          gh: 'system-tools/{name}/{version}'
+          gh: 'system-tools/{name}/2.49.2-1'
