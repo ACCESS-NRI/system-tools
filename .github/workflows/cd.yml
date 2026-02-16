@@ -63,14 +63,12 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-cd.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/cd.yml@v7
+    uses: access-nri/build-cd/.github/workflows/cd.yml@v8
     with:
       model: ${{ matrix.manifest.name }}
       spack-manifest-path: ${{ matrix.manifest.path }}
-      # We have a custom schema for general software deployment manifests, so we specify it here
-      spack-manifest-schema-path: au.org.access-nri/tools/spack/environment/deployment
-      spack-manifest-schema-version: 1-0-0
-      config-versions-schema-version: 3-0-0
+      spack-manifest-schema-version: 2-0-0
+      config-versions-schema-version: 4-0-0
       config-packages-schema-version: 1-0-0
       # This is a non-model deployment repository, so we do not want to tag the deployment or upload to the build database
       tag-deployment: false
