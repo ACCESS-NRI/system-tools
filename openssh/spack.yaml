@@ -8,24 +8,23 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [openssh]
-  - _version: [9.9p1]
+  - _version: [9.9p1-1]
   specs:
   - openssh@9.9p1
   packages:
     # Compilers
     c:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     cxx:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     fortran:
       require:
-      - 'gcc@14.1.0'
-
+      - 'gcc@15.1.0'
     all:
       prefer:
-      - 'target=x86_64'
+      - 'target=x86_64_v3'
   view: true
   concretizer:
     unify: true
@@ -35,4 +34,4 @@ spack:
         include:
         - openssh
         projections:
-          openssh: 'system-tools/{name}/{version}'
+          openssh: 'system-tools/{name}/9.9p1-1'

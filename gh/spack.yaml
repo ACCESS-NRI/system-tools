@@ -6,25 +6,25 @@
 # This manifest is for installing gh, the GitHub command line interface
 spack:
   definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [gh]
-  - _version: [2.49.2]
+  - _version: [2.49.2-1]
   specs:
   - gh@2.49.2
   packages:
     # Compilers
     c:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     cxx:
       require:
-      - 'gcc@14.1.0'
+      - 'gcc@15.1.0'
     fortran:
       require:
-      - 'gcc@14.1.0'
-
+      - 'gcc@15.1.0'
     all:
       prefer:
-      - 'target=x86_64'
+      - 'target=x86_64_v3'
   view: true
   concretizer:
     unify: true
@@ -34,4 +34,4 @@ spack:
         include:
         - gh
         projections:
-          gh: 'system-tools/{name}/{version}'
+          gh: 'system-tools/{name}/2.49.2-1'
