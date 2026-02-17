@@ -34,4 +34,5 @@ spack:
         include:
         - openssh
         projections:
-          openssh: 'system-tools/{name}/9.9p1-1'
+          # build-cd will inject the _version into this projection
+          openssh: 'system-tools/{name}'
