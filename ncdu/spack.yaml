@@ -34,4 +34,5 @@ spack:
         include:
         - ncdu
         projections:
-          ncdu: 'system-tools/{name}/1.19-1'
+          # build-cd will inject the _version into this projection
+          ncdu: 'system-tools/{name}'
