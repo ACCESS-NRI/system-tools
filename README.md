@@ -4,6 +4,10 @@
 
 This repository is for deploying general purpose system software that is used on HPC targets, in this case gadi@NCI utilising the [build-cd](https://github.com/ACCESS-NRI/build-cd) infrastructure.
 
+## Versioning
+
+Versioning of tools in this repository consists of taking the official versions defined in the package, and appending a build number to the end of it (eg., for `yq 4.45.4`, the version would be `4.45.4-1`). This is so we are able to make changes unrelated to the package itself (eg. updating compilers and other lower-level dependenceis) without needing to wait and bundle changes until the next official release of a package we don't control. 
+
 ## Supported tools
 
 ### ncdu
@@ -29,6 +33,10 @@ The OpenSSH suite consists of the following tools:
 > [!WARNING]
 > pinentry system-tool was added primarily for [mosrs-auth simple password input dialog](https://github.com/ACCESS-NRI/dev-docs/wiki/MOSRS#mosrs-auth-with-a-simple-password-input-dialog).
 > For all other use cases, we recommend using Gadi's system pinentry, as ACCESS-NRI has not tested or validated this library configuration for security compliance.
+
+### yq
+
+[yq](https://mikefarah.gitbook.io/yq) is a lightweight YAML processor. 
 
 ## How to use
 
