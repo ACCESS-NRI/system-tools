@@ -8,9 +8,9 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [git]
-  - _version: [2.53.0]
+  - _version: [2.53.0-0]
   specs:
-  - gh
+  - git@2.53.0
   packages:
     # Compilers
     c:
