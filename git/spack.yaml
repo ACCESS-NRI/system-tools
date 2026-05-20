@@ -35,4 +35,4 @@ spack:
         - git
         projections:
           # build-cd will inject the _version into this projection
-          git: 'system-tools/{name}'
+          git: 'system-tools/{name}/{version}'
