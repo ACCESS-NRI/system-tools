@@ -35,4 +35,4 @@ spack:
         - ncdu
         projections:
           # build-cd will inject the _version into this projection
-          ncdu: 'system-tools/{name}'
+          ncdu: 'system-tools/{name}/{version}'
