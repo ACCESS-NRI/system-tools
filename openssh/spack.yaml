@@ -35,4 +35,4 @@ spack:
         - openssh
         projections:
           # build-cd will inject the _version into this projection
-          openssh: 'system-tools/{name}'
+          openssh: 'system-tools/{name}/{version}'

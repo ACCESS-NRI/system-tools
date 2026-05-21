@@ -35,4 +35,4 @@ spack:
         - gh
         projections:
           # build-cd will inject the _version into this projection
-          gh: 'system-tools/{name}'
+          gh: 'system-tools/{name}/{version}'

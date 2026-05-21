@@ -35,4 +35,4 @@ spack:
         - pinentry
         projections:
           # build-cd will inject the _version into this projection
-          pinentry: 'system-tools/{name}'
+          pinentry: 'system-tools/{name}/{version}'
