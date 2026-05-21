@@ -54,6 +54,10 @@ It also works without the `system-tools` namespace:
 module avail ncdu
 ```
 
+## Development
+
+How this repository is developed is essentially in line with `ACCESS-NRI/software-deployment-template`, but with the caveat that we use the `system-tools` prefix in the module projections, to note it is a system tool rather than a model itself.
+
 ## Support
 
 This repository and the software deployed from it are supported by ACCESS-NRI.
