@@ -14,7 +14,6 @@ on:
       - dev
       - backport/*.*
     paths:
-      - config/**
       - '**/spack.yaml'
   issue_comment:
     types:
@@ -105,13 +104,11 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/ci.yml@v8
+    uses: access-nri/build-cd/.github/workflows/ci.yml@v9
     with:
       model: ${{ matrix.manifest.name }}
       spack-manifest-path: ${{ matrix.manifest.path }}
       spack-manifest-schema-version: 2-0-0
-      config-versions-schema-version: 4-0-0
-      config-packages-schema-version: 1-0-0
     permissions:
       pull-requests: write
       contents: write
@@ -132,7 +129,7 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/ci-closed.yml@v8
+    uses: access-nri/build-cd/.github/workflows/ci-closed.yml@v9
     with:
       spack-manifest-path: ${{ matrix.manifest.path }}
     secrets: inherit

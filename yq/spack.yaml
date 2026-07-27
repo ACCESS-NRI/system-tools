@@ -9,6 +9,11 @@ spack:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [yq]
   - _version: [4.45.4-1]
+  # _spack-version informs the branch of spack to use
+  - _spack-version: ["1.1"]
+  # Release database provenance information - packages for inclusion into the database, and packages just for injection into the modules
+  - _provenance: []
+  - _injection: []
   specs:
   - yq@4.45.4
   packages:
@@ -28,6 +33,11 @@ spack:
   view: true
   concretizer:
     unify: true
+  repos:
+    access_spack_packages:
+      git: https://github.com/ACCESS-NRI/access-spack-packages.git
+      tag: 2026.02.002
+      destination: $env/.package_repos/access-spack-packages
   modules:
     default:
       tcl:
