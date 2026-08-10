@@ -9,6 +9,11 @@ spack:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [ncdu]
   - _version: ['1.19-1']
+  # _spack-version informs the branch of spack to use
+  - _spack-version: ["1.1"]
+  # Release database provenance information - packages for inclusion into the database (not relevant/required), and packages just for injection into the modules
+  - _provenance: []
+  - _injection: []
   specs:
   - ncdu@1.19
   packages:
@@ -28,6 +33,11 @@ spack:
   view: true
   concretizer:
     unify: true
+  repos:
+    access_spack_packages:
+      git: https://github.com/ACCESS-NRI/access-spack-packages.git
+      tag: 2026.02.002
+      destination: $env/package-repos/access-spack-packages
   modules:
     default:
       tcl:
