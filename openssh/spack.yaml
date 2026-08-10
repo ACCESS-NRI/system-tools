@@ -11,7 +11,7 @@ spack:
   - _version: [9.9p1-1]
   # _spack-version informs the branch of spack to use
   - _spack-version: ["1.1"]
-  # Release database provenance information - packages for inclusion into the database, and packages just for injection into the modules
+  # Release database provenance information - packages for inclusion into the database (not relevant/required), and packages just for injection into the modules
   - _provenance: []
   - _injection: []
   specs:
