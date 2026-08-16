@@ -1,0 +1,37 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+#
+# This manifest is for installing yq, a command-line YAML processor.
+spack:
+  definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
+  - _name: [cmake]
+  - _version: [4.2.3-1]
+  specs:
+  - cmake@4.2.3
+  packages:
+    # Compilers
+    c:
+      require:
+      - 'gcc@15.1.0'
+    cxx:
+      require:
+      - 'gcc@15.1.0'
+    fortran:
+      require:
+      - 'gcc@15.1.0'
+    all:
+      prefer:
+      - 'target=x86_64_v3'
+  view: true
+  concretizer:
+    unify: true
+  modules:
+    default:
+      tcl:
+        include:
+        - yq
+        projections:
+          yq: 'system-tools/{name}/{version}'
