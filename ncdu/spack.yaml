@@ -8,9 +8,9 @@ spack:
   definitions:
   # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
   - _name: [ncdu]
-  - _version: ['1.19-1']
+  - _version: [1.19-1]
   # _spack-version informs the branch of spack to use
-  - _spack-version: ["1.1"]
+  - _spack-version: ['1.1']
   # Release database provenance information - packages for inclusion into the database (not relevant/required), and packages just for injection into the modules
   - _provenance: []
   - _injection: []
@@ -20,16 +20,16 @@ spack:
     # Compilers
     c:
       require:
-      - 'gcc@15.1.0'
+      - gcc@15.1.0
     cxx:
       require:
-      - 'gcc@15.1.0'
+      - gcc@15.1.0
     fortran:
       require:
-      - 'gcc@15.1.0'
+      - gcc@15.1.0
     all:
       prefer:
-      - 'target=x86_64_v3'
+      - target=x86_64_v3
   view: true
   concretizer:
     unify: true
@@ -45,4 +45,4 @@ spack:
         - ncdu
         projections:
           # build-cd will inject the _version into this projection
-          ncdu: 'system-tools/{name}/{version}'
+          ncdu: system-tools/{name}/{version}
