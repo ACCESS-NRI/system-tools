@@ -1,0 +1,47 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+#
+spack:
+  definitions:
+  # _name and _version are reserved definitions that inform build-cd deployments, and have no effect otherwise
+  - _name: [environment-modules]
+  - _version: [5.7.0-1]
+  # _spack-version informs the branch of spack to use
+  - _spack-version: ['1.1']
+  # Release database provenance information - packages for inclusion into the database (not relevant/required), and packages just for injection into the modules
+  - _provenance: []
+  - _injection: []
+  specs:
+  - environment-modules@5.7.0
+  packages:
+    # Compilers
+    c:
+      require:
+      - gcc@15.1.0
+    cxx:
+      require:
+      - gcc@15.1.0
+    fortran:
+      require:
+      - gcc@15.1.0
+    all:
+      prefer:
+      - target=x86_64_v3
+  view: true
+  concretizer:
+    unify: true
+  repos:
+    access_spack_packages:
+      git: https://github.com/ACCESS-NRI/access-spack-packages.git
+      tag: 2026.10.010
+      destination: $env/package-repos/access-spack-packages
+  modules:
+    default:
+      tcl:
+        include:
+        - environment-modules
+        projections:
+          # build-cd will inject the _version into this projection
+          environment-modules: system-tools/{name}/{version}
