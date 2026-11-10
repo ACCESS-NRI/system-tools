@@ -45,4 +45,4 @@ spack:
         - yq
         projections:
           # build-cd will inject the _version into this projection
-          yq: system-tools/{name}
+          yq: system-tools/{name}/{version}

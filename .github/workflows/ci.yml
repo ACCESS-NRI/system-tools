@@ -104,7 +104,7 @@ jobs:
       max-parallel: 1
       matrix:
         manifest: ${{ fromJson(needs.setup-pr.outputs.manifest) }}
-    uses: access-nri/build-cd/.github/workflows/ci.yml@v9
+    uses: access-nri/build-cd/.github/workflows/ci.yml@392-correct-module-naming
     with:
       model: ${{ matrix.manifest.name }}
       spack-manifest-path: ${{ matrix.manifest.path }}
